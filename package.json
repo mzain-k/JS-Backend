@@ -1,0 +1,16 @@
+{
+  "name": "backend-js",
+  "version": "1.0.0",
+  "description": "learning backend and deploying",
+  "license": "ISC",
+  "author": "Muhammad Zain Khan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
