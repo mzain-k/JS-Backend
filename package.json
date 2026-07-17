@@ -4,7 +4,7 @@
   "description": "learning backend and deploying",
   "license": "ISC",
   "author": "Muhammad Zain Khan",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
