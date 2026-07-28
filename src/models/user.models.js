@@ -5,24 +5,24 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new Schema(
     {
-        id: {
-            type: String,
-            reqiured: true,
-            unique: true,
-            lowercase: true,
-            trim: true,
-            index: true,
-        },
+        // id: {
+        //     type: String,
+        //     required: true,
+        //     unique: true,
+        //     lowercase: true,
+        //     trim: true,
+        //     index: true,
+        // },
         email: {
             type: String,
-            reqiured: true,
+            required: true,
             unique: true,
             lowercase: true,
             trim: true,
         },
-        uaername: {
+        username: {
             type: String,
-            reqiured: true,
+            required: true,
             unique: true,
             lowercase: true,
             trim: true,
@@ -30,17 +30,17 @@ const userSchema = new Schema(
         },
         fullName: {
             type: String,
-            reqiured: true,
+            required: true,
             trim: true,
             index: true
         },
         password: {
             type: String,
-            reqiured: [true, "Password is Required"],
+            required: [true, "Password is Required"],
         },
         avatar: {
             type: String, // cloudinary url
-            reqiured: true,
+            required: true,
         },
         coverImage:{
             type: String // cloudinary url
@@ -56,7 +56,7 @@ const userSchema = new Schema(
 )
 
 userSchema.pre("save", async function (next) {
-    if (this.isModified("password")) {
+    if (!this.isModified("password")) {
         return next();
     }
     this.password = await bcrypt.hash(this.password, 10)
