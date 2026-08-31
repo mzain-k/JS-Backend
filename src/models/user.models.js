@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new Schema(
     {
-        // id: {
+        // id: { // MongoDB automatically creates '_id'
         //     type: String,
         //     required: true,
         //     unique: true,
