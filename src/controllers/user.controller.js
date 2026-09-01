@@ -25,10 +25,10 @@ const generateAccessAndRefreshToken = async (userId) => {
 
 const registerUser = asyncHandler( async (req, res) => {
     const { fullName, email, username, password } = req.body
-    console.log("email: ", email);
-    console.log("password: ", password);
-    console.log("username: ", username);
-    console.log("fullName: ", fullName);
+    // console.log("email: ", email);
+    // console.log("password: ", password);
+    // console.log("username: ", username);
+    // console.log("fullName: ", fullName);
 
     if (
         [fullName, email, username, password].some((field) => field.trim()  === "")
@@ -81,7 +81,7 @@ const registerUser = asyncHandler( async (req, res) => {
     }
 
     return res.status(201).json(
-        new ApiResponse(200, createdUser, "User registered Succecfully.")
+        new ApiResponse(200, createdUser, "User registered Successfully.")
     )
 
 
@@ -225,18 +225,19 @@ const getCurrentUser = asyncHandler( async (req, res) => {
 })
 
 const updateAccountDetails = asyncHandler ( async (req, res) => {
-    const {fullName, email} = req.body
+    const {fullName, email, username} = req.body
 
-    if (!fullName || !email) {
+    if (!fullName || !email || !username) {
        throw new ApiError(400, "All fields required")
     }
 
-    User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set: {
                 fullName: fullName,
-                email: email
+                email: email,
+                username: username
             }
         },
         {new: true}
@@ -244,7 +245,7 @@ const updateAccountDetails = asyncHandler ( async (req, res) => {
 
     return res
     .status(200)
-    .json(new ApiResponse(200, user, "Account Details updated Successfully"))
+    .json(new ApiResponse(200, updatedUser, "Account Details updated Successfully"))
 })
 
 const updateUserAvatar = asyncHandler ( async (req, res) => {
@@ -334,7 +335,7 @@ const getUserChannelProfile = asyncHandler ( async (req, res) => {
                     $size: "$subscribers" 
                 },
                 subscribedToCount: {
-                    $size: "$subscriberTo"
+                    $size: "$subscribedTo"
                 },
                 isSubscribed: {
                     $cond: {
